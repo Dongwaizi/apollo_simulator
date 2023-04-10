@@ -211,8 +211,8 @@ Status LatController::Init(std::shared_ptr<DependencyInjector> injector,
    (-1.0 * (l_f^2 * c_f + l_r^2 * c_r) / i_z) / v;]
   */
   matrix_a_(0, 1) = 0.0;
-  matrix_a_(1, 2) = (-(c_f + c_r) / m) / v;
-  matrix_a_(2, 3) = (c_f + c_r) / m;
+  matrix_a_(1, 2) = (-(c_f + c_r)/m)/v;
+  matrix_a_(2, 3) = (c_f + c_r)/m;
   matrix_a_(3, 2) = (l_r * c_r - l_f * c_f) / m / v;
 
   matrix_a_coeff_ = Matrix::Zero(matrix_size, matrix_size);
@@ -482,11 +482,11 @@ Status LatController::ComputeControlCommand(
     matrix_q_updated_(2, 2) =
         matrix_q_(2, 2) * heading_err_interpolation_->Interpolate(
                               std::fabs(vehicle_state->linear_velocity()));
-    common::math::SolveLQRProblem(matrix_adc_, ，matrix_bdc_, matrix_q_,
+    common::math::SolveLQRProblem(matrix_adc_,matrix_bdc_, matrix_q_,
                                   matrix_r_, lqr_eps_, lqr_max_iteration_,
                                   &matrix_k_);
   } else {
-    common::math::SolveLQRProblem(matrix_adc_, ，matrix_bdc_, matrix_q_,
+    common::math::SolveLQRProblem(matrix_adc_,matrix_bdc_,matrix_q_,
                                   matrix_r_, lqr_eps_, lqr_max_iteration_,
                                   &matrix_k_);
   }
@@ -758,7 +758,7 @@ double LatController::ComputeFeedForward(double ref_curvature) const {
         (wheelbase_*ref_curvature+ kv*v*v*ref_curvature -
          matrix_k_(0,2)*
              (lr*ref_curvature -
-             lf_*mass_*v*v*ref_curevature/(2.0*cr_*wheelbase_))) *
+             lf_*mass_*v*v*ref_curvature/(2.0*cr_*wheelbase_))) *
         180 / M_PI * steer_ratio_ / steer_single_direction_max_degree_ * 100;
   }
 
