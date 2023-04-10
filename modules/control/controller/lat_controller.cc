@@ -743,7 +743,7 @@ void LatController::UpdateMatrixCompound() {
 
 double LatController::ComputeFeedForward(double ref_curvature) const {
   const double kv =
-      0910-question - 0910-question
+      l_r*m/2*c_f*(l_f+l_r) - l_f*m/2*c_r*(l_f+l_r);
 
   // Calculate the feedforward term of the lateral controller; then change it
   // from rad to %
